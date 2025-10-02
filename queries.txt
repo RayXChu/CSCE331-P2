@@ -1,0 +1,46 @@
+Special Query #1: "Weekly Sales History"
+
+SELECT 
+    DATE_TRUNC('week', time)::DATE AS week_start, 
+    COUNT(*) AS total_orders
+FROM sales_history
+GROUP BY week_start
+ORDER BY week_start;
+
+Special Query #2: "Realistic Sales History"
+SELECT
+    EXTRACT(HOUR FROM time) AS hour_of_day,
+    COUNT(*) AS num_orders,
+    SUM(price) AS total_sales
+FROM sales_history
+GROUP BY hour_of_day
+ORDER BY hour_of_day;
+
+Special Query #3: "Peak Sales Day"
+SELECT
+    CAST(time AS DATE) AS sales_day,
+    SUM(price) AS total_sales
+FROM sales_history
+GROUP BY sales_day
+ORDER BY total_sales DESC
+LIMIT 10;
+
+
+Regular Query: How many times the drink with id 1 was sold?
+SELECT COUNT(*) AS times_sold
+FROM sales_history
+WHERE drink_id = 1;
+
+Regular Query: Shows the first and last order dates.
+SELECT MIN(time) AS first_order, MAX(time) AS last_order
+FROM sales_history;
+
+
+Regular Query: Show average price of all drinks sold
+SELECT ROUND(AVG(price), 2) AS avg_price
+FROM sales_history;
+
+Regular Query : How many sales included a topping?
+SELECT COUNT(*) AS with_toppings
+FROM sales_history
+WHERE topping_id > 0;
