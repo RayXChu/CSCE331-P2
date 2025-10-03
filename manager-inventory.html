@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Boba Shop Inventory Manager</title>
+    <style>
+        body {
+            font-family: Arial;
+            margin: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #ddd;
+        }
+        input {
+            padding: 5px;
+            margin: 5px;
+        }
+        button {
+            padding: 5px 10px;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Boba Shop Inventory Manager</h1>
+    
+    <h2>Add New Item</h2>
+    <form id="addForm">
+        Item Name: <input type="text" id="name" required>
+        Quantity: <input type="number" id="quantity" required>
+        <button type="submit">Add Item</button>
+    </form>
+
+    <h2>Current Inventory</h2>
+    <table id="inventoryTable">
+        <tr>
+            <th>Item Name</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+    </table>
+
+    <script>
+        let inventory = [
+            {name: "Tapioca Pearls", quantity: 50},
+            {name: "Milk", quantity: 100},
+            {name: "Tea Leaves", quantity: 75}
+        ];
+
+        function displayInventory() {
+            let table = document.getElementById("inventoryTable");
+            
+            // Clear table except header
+            while(table.rows.length > 1) {
+                table.deleteRow(1);
+            }
+            
+            // Add rows
+            for(let i = 0; i < inventory.length; i++) {
+                let row = table.insertRow(-1);
+                let cell1 = row.insertCell(0);
+                let cell2 = row.insertCell(1);
+                let cell3 = row.insertCell(2);
+                
+                cell1.innerHTML = inventory[i].name;
+                cell2.innerHTML = '<input type="number" value="' + inventory[i].quantity + '" id="qty' + i + '">';
+                cell3.innerHTML = '<button onclick="updateItem(' + i + ')">Update</button>';
+            }
+        }
+
+        document.getElementById("addForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            
+            let name = document.getElementById("name").value;
+            let quantity = document.getElementById("quantity").value;
+            
+            inventory.push({name: name, quantity: quantity});
+            
+            displayInventory();
+            
+            document.getElementById("name").value = "";
+            document.getElementById("quantity").value = "";
+        });
+
+        function updateItem(index) {
+            let newQuantity = document.getElementById("qty" + index).value;
+            inventory[index].quantity = newQuantity;
+            alert("Updated " + inventory[index].name + " to quantity: " + newQuantity);
+        }
+
+        displayInventory();
+    </script>
+</body>
+</html>
+
