@@ -1,0 +1,38 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  display: flex;
+  font-family: Arial, sans-serif;
+}
+
+.drink, .toppings, .order-details {
+  width: 33%;
+  height: 100%;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.drink, .toppings {
+  border-right: 2px solid black;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  
+}
+
+.order-details button {
+  margin-top: 20px;
+  background-color: lightgreen;
+}
